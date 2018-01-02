@@ -93,7 +93,7 @@ def process(data):
 
 
     print(' ')
-    print("LENGTH OF DATA --> "+len(data))
+    print("LENGTH OF DATA --> "% len(data))
     print(' ')
     
     print(fday)
@@ -149,15 +149,9 @@ def getforex():
         print('no')
 
 def first():
-     try:
-       pickle_in = open('linearregression.pickle','rb')
-     except:
-         pik = 0
-         choice = input('stock or forex(in beta)')
-         if choice == 'stock' or 's':
-            getstock()
-         S   
-         else choice == 'f' or 'forex':
-            getforex()
-
+    choice = input('stock or forex(in beta)')
+    if choice == 's' or 'stock' or 'stocks':
+        getstock()
+    else:
+        getforex()
 first()
