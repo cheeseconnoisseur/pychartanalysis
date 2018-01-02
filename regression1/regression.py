@@ -93,7 +93,8 @@ def process(data):
 
 
     print(' ')
-    print("LENGTH OF DATA --> "% len(data))
+    print("LENGTH OF DATA --> ", end="")
+    print(len(data))
     print(' ')
     
     print(fday)
@@ -113,7 +114,8 @@ def process(data):
     ftlday = ftlday.replace(" days, 0:00:00", "")
     ftlday = int(ftlday)
     forday = (dp/ftlday)
-    print("value of forcasted days forward as a decimal of time in dataset ----> "+forday)
+    print("value of forcasted days forward as a decimal of the lenghth of time in dataset ----> ", end="")
+    print(forday)
     forrday = forday*100
     forecast(forday, data, lday)
 
