@@ -136,13 +136,12 @@ def getforex():
     print(time1)
     time2 = input('to date:yyyy-mm-dd')
     print(time2)
-    try:
+    quandl.ApiConfig.api_key = '2PDeyG166PJWMeZ1fZqi'
+    data = quandl.get("FRED/"+forr, start_date="2001-12-31", end_date="2016-12-31")
+    print(data.head())
+    process(data)
 
-        data = quandl.get("FRED/"+forr, start_date="2001-12-31", end_date="2005-12-31")
-        print(data)
-    except:
-        print('no')
-
+    
 def first():
     choice = input('stock or forex(in beta)')
     if choice == 's' or 'stock' or 'stocks':
