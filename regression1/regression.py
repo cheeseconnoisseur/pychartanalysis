@@ -17,7 +17,7 @@ pd.options.mode.chained_assignment = None
 def forecast(forday, data, lday):
     data['HL_PCT'] = (data['Adj. High'] - data['Adj. Close']) / data['Adj. Close'] * 100
     data['PCT_change'] = (data['Adj. Close'] - data['Adj. Open']) / data['Adj. Open'] * 100
-    forecast_out = int(math.ceil(forday*len(data)))
+    forecast_out = int(forday*len(data))
     print(forecast_out)
     data = data[['Adj. Close','HL_PCT','PCT_change','Adj. Volume']]
     forecast_col = 'Adj. Close'
@@ -48,7 +48,10 @@ def forecast(forday, data, lday):
 
     forecast_set = clas.predict(x_recent)
 
-    print(forecast_set, accuracy, forecast_out)
+    
+    print('forecast -> ',forecast_set)
+    print('accuracy-> ', accuracy)
+    print('forecasted ', forecast_out, ' days out')
     data['forecast'] = np.nan
 
 ##    last_date = lday
@@ -80,31 +83,18 @@ def forecast(forday, data, lday):
     plt.show()
 
 def process(data):
-    dp = input('how many days in advanced to predict:')
-    dp = int(dp)
-    print(dp)
-
     data.to_csv('data.csv')
     datacv = pd.read_csv('data.csv')
+    
     fday = datacv.iloc[-1,0]
     lday = datacv.iloc[0,0]
-
-
-
-
-    print(' ')
-    print("LENGTH OF DATA --> ", end="")
-    print(len(data))
-    print(' ')
     
-    print(fday)
+    print("LENGTH OF DATA --> ", len(data))
     fday = str(fday)
     lday = str(lday)
-    print(fday)
     fday = fday.replace("-", "")
     lday = lday.replace("-", "")
 
-    print(fday)
     fday = dt.datetime.strptime(fday,'%Y%m%d')
     lday = dt.datetime.strptime(lday,'%Y%m%d')
     #iloc (pandas) finds something by index or position
@@ -113,7 +103,10 @@ def process(data):
     ftlday = str(ftlday)
     ftlday = ftlday.replace(" days, 0:00:00", "")
     ftlday = int(ftlday)
-    forday = (dp/ftlday)
+    print("length of time set--->", ftlday)
+    dp = input('how many days in advanced to predict:')
+    dp = int(dp)    
+    forday = (dp/len(data))
     print("value of forcasted days forward as a decimal of the lenghth of time in dataset ----> ", end="")
     print(forday)
     forrday = forday*100
