@@ -1,7 +1,7 @@
 import pandas as pd
 import quandl
 import math
-import datetime
+import datetime as dt
 import numpy as np
 from sklearn import preprocessing, cross_validation, svm
 from sklearn.linear_model import LinearRegression
@@ -43,7 +43,7 @@ def getstock():
 
     data.to_csv('data.csv')
     datacv = pd.read_csv('data.csv')
-    fday = datacv.loc[-1,0]
+    fday = datacv.iloc[-1,0]
 
 
     
@@ -55,11 +55,11 @@ def getstock():
     print(' ')
 
     print(fday)
-##    #iloc (pandas) finds something by index or position
-##    last_unix = fday.timestamp()
-##    oneday = 60*60*24 #(86400)
-##    next_unix = last_unix + oneday
-##    print(next_unix)
+    #iloc (pandas) finds something by index or position
+    last_unix = pd.to_datetime('13000101', format='%Y%m%d', errors='ignore',infer_datetime_format=True)
+    oneday = 60*60*24 #(86400)
+    next_unix = last_unix + dt.timedelta(minutes=1440)
+    print(next_unix)
 
 
 
