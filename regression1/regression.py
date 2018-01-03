@@ -75,7 +75,7 @@ def forecast(forday, data, lday):
         #makes it it also makes all the other collums nan and adds the i
         #which is the forecast makingit just time and forcast.
         data.loc[next_date] = [np.nan for _ in range(len(data.columns)-1)] + [i]
-    plt.figure(figsize=(11,7))
+    plt.figure(figsize=(11,5.5))
     plt.subplot(121)
     plt.title('what happened')
     olddata['Adj. Close'].plot()
@@ -136,7 +136,7 @@ def getstock():
     time2 = input('to date:yyyy-mm-dd')
     print(time2)
     quandl.ApiConfig.api_key = '2PDeyG166PJWMeZ1fZqi'
-    data = quandl.get("WIKI/"+stock, start_date="2001-12-31", end_date="2016-12-31")
+    data = quandl.get("WIKI/"+stock, start_date=time1, end_date=time2)
     print(data.head())
     process(data)
 
@@ -158,8 +158,9 @@ def getforex():
     
 def first():
     choice = input('stock or forex(in beta)')
-    if choice == 's' or 'stock' or 'stocks':
+    if choice in ('s', 'stock', 'stocks'):
         getstock()
     else:
+        print("i said its in damn beta why are you here it barely works go to stocks its just better trust me thank you np")
         getforex()
 first()
