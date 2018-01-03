@@ -15,6 +15,8 @@ style.use('ggplot')
 pd.options.mode.chained_assignment = None 
 
 def forecast(forday, data, lday):
+    olddata = data
+
     data['HL_PCT'] = (data['Adj. High'] - data['Adj. Close']) / data['Adj. Close'] * 100
     data['PCT_change'] = (data['Adj. Close'] - data['Adj. Open']) / data['Adj. Open'] * 100
     forecast_out = int(forday*len(data))
@@ -73,7 +75,18 @@ def forecast(forday, data, lday):
         #makes it it also makes all the other collums nan and adds the i
         #which is the forecast makingit just time and forcast.
         data.loc[next_date] = [np.nan for _ in range(len(data.columns)-1)] + [i]
+    plt.figure(figsize=(11,7))
+    plt.subplot(121)
+    plt.title('what happened')
+    olddata['Adj. Close'].plot()
+    plt.legend(loc=4)
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    
 
+
+    plt.subplot(122)
+    plt.title('what regression.py thought would happen')
     data['Adj. Close'].plot()
     data['forecast'].plot()
     #loc is location 4 is bottom right
@@ -81,6 +94,7 @@ def forecast(forday, data, lday):
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.show()
+    
 
 def process(data):
     data.to_csv('data.csv')
