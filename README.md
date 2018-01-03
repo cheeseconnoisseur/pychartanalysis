@@ -9,6 +9,9 @@ I would like to now apply this to forex data which should be a similar concept a
 to experiment with running this data, as well as headlines to give common sentiments of the country the currency corresponds to,
 through simple deep neural networks, and then maybe experiment with an rnn or a combination of the two, using tensorflow.
 
+so far:
+![yeet](https://raw.githubusercontent.com/cheeseconnoisseur/cheeseconnoisseur.github.io/master/images/regres.JPG)
+
 
 
 
