@@ -12,7 +12,7 @@ data = {}
 pik = 0
 quandl.ApiConfig.api_key = '2PDeyG166PJWMeZ1fZqi'
 style.use('ggplot')
-pd.options.mode.chained_assignment = None 
+pd.options.mode.chained_assignment = None
 
 def forecast(forday, data, lday):
     olddata = data
@@ -26,8 +26,9 @@ def forecast(forday, data, lday):
     data.fillna(value=-99999, inplace=True)
     data['label'] = data[forecast_col].shift(-forecast_out)
     x = np.array(data.drop(['label'], 1))
-    x = preprocessing.scale(x)
+##    x = preprocessing.scale(x)
     x_recent = x[-forecast_out:]
+    dp = input(x_recent)
     x = x[:-forecast_out]
     data.dropna(inplace=True)
     y = np.array(data['label'])
@@ -50,7 +51,7 @@ def forecast(forday, data, lday):
 
     forecast_set = clas.predict(x_recent)
 
-    
+
     print('forecast -> ',forecast_set)
     print('accuracy-> ', accuracy)
     print('forecasted ', forecast_out, ' days out')
@@ -82,7 +83,7 @@ def forecast(forday, data, lday):
     plt.legend(loc=4)
     plt.xlabel('Date')
     plt.ylabel('Price')
-    
+
 
 
     plt.subplot(122)
@@ -94,21 +95,18 @@ def forecast(forday, data, lday):
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.show()
-    
+
 
 def process(data):
     data.to_csv('data.csv')
     datacv = pd.read_csv('data.csv')
-    
     fday = datacv.iloc[-1,0]
     lday = datacv.iloc[0,0]
-    
     print("LENGTH OF DATA --> ", len(data))
     fday = str(fday)
     lday = str(lday)
     fday = fday.replace("-", "")
     lday = lday.replace("-", "")
-
     fday = dt.datetime.strptime(fday,'%Y%m%d')
     lday = dt.datetime.strptime(lday,'%Y%m%d')
     #iloc (pandas) finds something by index or position
@@ -119,12 +117,16 @@ def process(data):
     ftlday = int(ftlday)
     print("length of time set--->", ftlday)
     dp = input('how many days in advanced to predict:')
-    dp = int(dp)    
+    dp = int(dp)
     forday = (dp/len(data))
     print("value of forcasted days forward as a decimal of the lenghth of time in dataset ----> ", end="")
     print(forday)
     forrday = forday*100
     forecast(forday, data, lday)
+
+def processwithpik(data):
+    dp = input('how many days in advanced to predict:')
+    dp = int(dp)
 
 
 
@@ -139,6 +141,30 @@ def getstock():
     data = quandl.get("WIKI/"+stock, start_date=time1, end_date=time2)
     print(data.head())
     process(data)
+
+def getstockd():
+    forp = input('do you want to predict using past data or predict future(pp,pf)')
+    if forp == 'pp':
+        stock = input('ENTER STOCK')
+        print(stock)
+        time1 = input('from date:yyyy-mm-dd')
+        print(time1)
+        time2 = input('to date:yyyy-mm-dd')
+        print(time2)
+        quandl.ApiConfig.api_key = '2PDeyG166PJWMeZ1fZqi'
+        data = quandl.get("WIKI/"+stock, start_date=time1, end_date=time2)
+        print(data.head())
+        process(data)
+    else:
+        try:
+            pickle_in = open('linearregression.pickle','rb')
+            print('###model pickle has been found###')
+            _ = input('do you want to use model pickle(yes,no)')
+            if _ == 'yes':
+                processwithpik(data)
+
+        except:
+            print("no")
 
 
 
@@ -155,11 +181,14 @@ def getforex():
     print(data.head())
     process(data)
 
-    
+
 def first():
     choice = input('stock or forex(in beta)')
     if choice in ('s', 'stock', 'stocks'):
         getstock()
+    elif choice in ('sd'):
+        print("devmode")
+        getstockd()
     else:
         print("i said its in damn beta why are you here it barely works go to stocks its just better trust me thank you np")
         getforex()
