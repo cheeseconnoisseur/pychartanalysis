@@ -23,8 +23,8 @@ style.use('ggplot')
     data = quandl.get("WIKI/"+stock, start_date=time1, end_date=time2)
 '''
 print("mkay")
-time1 = '2004-09-16'
-time2 = '2018-01-01'
+time1 = '2009-09-20'
+time2 = '2011-06-19'
 
 #time1 = time1.replace("-", "")
 #time1 = time1.replace("-", "")
@@ -79,11 +79,11 @@ def ifsmall(df1):
         c = np.array([1,0,0])
         smallarray = np.append(smallarray,c)
         print(smallarray)
-    print("###########################################")
     strr = str(smallarray)
-    with open('y.csv','a') as file:
+    with open('ty.txt','a') as file:
         file.write(strr)
         file.write(',')
+        file.write('\n')
         file.close()
 
 
@@ -92,12 +92,14 @@ while time1 not in [time2,time2s1,time2s2,time2s3,time2s4,time2s5,time2s6,time2s
     time1 = time1 + dt.timedelta(days=1) #dt.timedelta(days=1)#df1 = changetoform(df1)df1=data.loc[[df1]]print(df1)
     df1=time1
     dabhi = dabhi+1
+    print(dabhi)
     df1 = changetoform(df1)
-    if dabhi == 10:
+    if np.size(bigarray) == 18:
         strr = str(bigarray)
-        with open('x.csv','a') as file:
+        with open('tx.txt','a') as file:
             file.write(strr)
             file.write(',')
+            file.write('\n')
             file.close()
         bigarray = np.array([])
         time1 = time1 + dt.timedelta(days=1) #dt.timedelta(days=1)#df1 = changetoform(df1)df1=data.loc[[df1]]print(df1)
@@ -110,6 +112,7 @@ while time1 not in [time2,time2s1,time2s2,time2s3,time2s4,time2s5,time2s6,time2s
             print(time1)
             ifsmall(df1)
         except:
+            print(dabhi)
             dabhi = dabhi-1
             print('no lol')
             continue
@@ -123,6 +126,7 @@ while time1 not in [time2,time2s1,time2s2,time2s3,time2s4,time2s5,time2s6,time2s
             df1=data.loc[df1,'PCT_change']
             print(df1)
             print(time1)
+            print(dabhi)
 
 
             if df1 < -0.5:
@@ -140,6 +144,7 @@ while time1 not in [time2,time2s1,time2s2,time2s3,time2s4,time2s5,time2s6,time2s
 
         except:
             print("skipped")
+            print(dabhi)
             dabhi = dabhi-1
         continue
 

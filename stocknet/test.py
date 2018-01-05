@@ -6,6 +6,12 @@ from matplotlib import style
 import pickle
 from dateutil.relativedelta import relativedelta
 import numpy as np
+import tensorflow as tf
+from numpy import genfromtxt
+import csv
+import re
+import types
+from numpy import array
 '''
 data = quandl.get("WIKI/GOOGL", start_date='2001-01-01', end_date='2018-01-01')
 print (data)
@@ -43,6 +49,7 @@ b = np.array([])
 c = np.append(a,b)
 print(c)
 '''
+'''
 mk1 = np.array([0,1,0,0,0,1,1,0,0])
 strr = str(mk1)
 with open('cc.csv','a') as file:
@@ -62,3 +69,36 @@ mk = np.array([0,1,0,0,0,1,1,0,0])
 strr = str(mk)
 df1 = strr
 openn(df1)
+'''
+'''
+train_x = genfromtxt('x.csv', delimiter=',',usecols=np.arange(0,0))
+train_y = genfromtxt('y.csv', delimiter=',')
+test_x = genfromtxt('tx.csv', delimiter=',',usecols=np.arange(0,1))
+test_y = genfromtxt('ty.csv', delimiter=',')
+'''
+
+with open('tx.txt') as csvfile:
+    f = csvfile.read()
+    csvfile.close()
+f=f.replace(" ","")
+f=f.replace(",","")
+f=f.replace(" ","")
+f=f.replace(".",",")
+f=f.replace("' ","")
+f=f.replace("\n","")
+f=f.replace("]","] ")
+f=f.replace("' ","")
+f=f.replace(",]","]")
+f = f.split(" ")
+print(f)
+
+a = np.array([])
+a = array( f )
+a = a[:-1]
+print(a)
+b = np.array([[0,1,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,2]])
+np.concatenate([a, [0,0,1,0,0,1,1,0,0,0,0,1,0,0,1,0,0,1]])
+
+print(a)
+
+
