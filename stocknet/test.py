@@ -37,8 +37,28 @@ yeet = yeet.replace("-", "")
 print(yeet)
 '''
 
-
+'''
 a = np.array([0,1,0])
 b = np.array([])
 c = np.append(a,b)
 print(c)
+'''
+mk1 = np.array([0,1,0,0,0,1,1,0,0])
+strr = str(mk1)
+with open('cc.csv','a') as file:
+    file.write(strr)
+    file.write(',')
+    file.close()
+
+
+##text=List of strings to be written to file
+def openn(df1):
+    with open('csvfile.csv','a') as file:
+        file.write(df1)
+        file.write(',')
+        file.close()
+
+mk = np.array([0,1,0,0,0,1,1,0,0])
+strr = str(mk)
+df1 = strr
+openn(df1)
