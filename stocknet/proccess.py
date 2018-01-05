@@ -7,6 +7,7 @@ import pickle
 from dateutil.relativedelta import relativedelta
 import numpy as np
 #import csv
+dabhi = 0
 
 quandl.ApiConfig.api_key = '2PDeyG166PJWMeZ1fZqi'
 style.use('ggplot')
@@ -63,7 +64,16 @@ def changetoform(df1):
 while time1 not in [time2,time2s1,time2s2,time2s3,time2s4,time2s5,time2s6,time2s7,time2s9,time2s10]:
     time1 = time1 + dt.timedelta(days=1) #dt.timedelta(days=1)#df1 = changetoform(df1)df1=data.loc[[df1]]print(df1)
     df1=time1
+    dabhi = dabhi+1
     df1 = changetoform(df1)
+    if dabhi == 10:
+        with open('data.csv','rb') as file:
+                    file.write(bigarray)
+                    bigarray = np.array([])
+                    file.close()
+    elif:
+        
+        
     try:
         df1=data.loc[df1,'PCT_change']
         print(df1)
