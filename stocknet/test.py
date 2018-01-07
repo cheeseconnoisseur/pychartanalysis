@@ -77,9 +77,9 @@ test_x = genfromtxt('tx.csv', delimiter=',',usecols=np.arange(0,1))
 test_y = genfromtxt('ty.csv', delimiter=',')
 '''
 
-with open('tx.txt') as csvfile:
-    f = csvfile.read()
-    csvfile.close()
+with open('tx.txt') as textfile:
+    f = textfile.read()
+    textfile.close()
 f=f.replace(" ","")
 f=f.replace(",","")
 f=f.replace(" ","")
@@ -100,5 +100,3 @@ b = np.array([[0,1,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,2]])
 np.concatenate([a, [0,0,1,0,0,1,1,0,0,0,0,1,0,0,1,0,0,1]])
 
 print(a)
-
-

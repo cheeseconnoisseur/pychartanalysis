@@ -54,8 +54,28 @@ data = quandl.get("WIKI/GOOGL", start_date='2001-01-01', end_date='2018-01-01')
 print (data)
 data['PCT_change'] = (data['Adj. Close'] - data['Adj. Open']) / data['Adj. Open'] * 100
 data = data[['Adj. Close','PCT_change','Adj. Volume']]
-bigarray = np.array([])
-smallarray=np.array([])
+#bigarray = np.array([])
+#smallarray=np.array([])
+bigarray = []
+smallarray = []
+
+def ifsmall(df1):
+    smallarray=np.array([])
+    if df1 < -0.5:
+        smallarray.append(['001'])
+
+    elif df1 -0.5 < df1 < 0.5:
+        smallarray.append(['010'])
+
+    elif 0.5 < df1:
+        smallarray.append(['100'])
+        strr = str(smallarray)
+    with open('ty.txt','a') as file:
+        file.write(strr)
+        file.write(',')
+        file.write('\n')
+        file.close()
+
 def changetoform(df1):
     df1 = df1.date()
     df1.strftime('%Y-%m-%d')
@@ -63,6 +83,63 @@ def changetoform(df1):
     df1 = df1.replace("-", "")
     return(df1)
 
+while time1 not in [time2,time2s1,time2s2,time2s3,time2s4,time2s5,time2s6,time2s7,time2s9,time2s10]:
+    time1 = time1 + dt.timedelta(days=1) #dt.timedelta(days=1)#df1 = changetoform(df1)df1=data.loc[[df1]]print(df1)
+    df1=time1
+    dabhi = dabhi+1
+    print(dabhi)
+    df1 = changetoform(df1)
+    if len(bigarray) == 6:
+        strr = str(bigarray)
+        with open('tx.txt','a') as file:
+            file.write(strr)
+            file.write(',')
+            file.write('\n')
+            file.close()
+        bigarray = np.array([])
+        time1 = time1 + dt.timedelta(days=1) #dt.timedelta(days=1)#df1 = changetoform(df1)df1=data.loc[[df1]]print(df1)
+        df1=time1
+        dabhi = 0
+        df1 = changetoform(df1)
+        try:
+            df1=data.loc[df1,'PCT_change']
+            print(df1)
+            print(time1)
+            ifsmall(df1)
+        except:
+            print(dabhi)
+            dabhi = dabhi-1
+            print('no lol')
+            continue
+
+
+    else:
+        try:
+            df1=data.loc[df1,'PCT_change']
+            print(df1)
+            print(time1)
+            print(dabhi)
+
+
+            if df1 < -0.5:
+                bigarray.append(['001'])
+                print(bigarray)
+
+            elif df1 -0.5 < df1 < 0.5:
+                bigarray.append(['010'])
+                print(bigarray)
+
+            elif 0.5 < df1:
+                bigarray.append(['100'])
+                print(bigarray)
+
+        except:
+            print("skipped")
+            print(dabhi)
+            dabhi = dabhi-1
+        continue
+
+'''
 def ifsmall(df1):
     smallarray=np.array([])
     if df1 < -0.5:
@@ -148,9 +225,8 @@ while time1 not in [time2,time2s1,time2s2,time2s3,time2s4,time2s5,time2s6,time2s
             dabhi = dabhi-1
         continue
 
-
+'''
 print("done")
-
 '''
 #forecast_col = 'Adj. Close'
 #forecast_out = int(math.ceil(0.01*len(df)))
