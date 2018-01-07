@@ -104,7 +104,12 @@ def futureforecast(forday, data):
     olddata = data
     data.to_csv('data.csv')
     datacv = pd.read_csv('data.csv')
-    data["X_DATE"] = datacv["Date"] + dt.timedelta(days=forday*len(data))
+    for i in data:
+        lol =data.index[i]
+        fday = str(lol)
+        fday = fday.replace("-", "")
+        fday = dt.datetime.strptime(fday,'%Y%m%d')
+        data["X_DATE"] = lol + dt.timedelta(days=forday*len(data))
     print(data.head())
     data.set_index('X_date', inplace=True)
     print(data.head())
